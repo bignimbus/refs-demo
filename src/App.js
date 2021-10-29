@@ -1,23 +1,52 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
 
-function App() {
+const Button = ({ onClick }) => {
+  const buttonRef = React.createRef();
+
+  React.useEffect(() => {
+    if (buttonRef.current) {
+      buttonRef.current.focus();
+    }
+  }, [buttonRef]);
+
+  return (
+    <div>
+      <button
+        type="button"
+        ref={buttonRef}
+        onClick={onClick}
+      >
+        Click this
+      </button>
+    </div>
+  );
+};
+
+const App = () => {
+  const  [numberOfClicks, setNumberOfClicks] = React.useState(0);
+
+  React.useEffect(() => {
+  }, [numberOfClicks]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        <span>
+          Number of clicks:
+          <span>
+            { numberOfClicks }
+          </span>
+        </span>
+      </div>
+
+      <footer>
+        <Button
+          onClick={() => {
+            setNumberOfClicks(numberOfClicks + 1);
+          }}
+        />
+      </footer>
     </div>
   );
 }
